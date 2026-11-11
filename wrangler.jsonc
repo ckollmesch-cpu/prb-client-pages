@@ -1,0 +1,12 @@
+{
+  // Princess Realty Belize - the client-facing pages (KYC intake first).
+  // Pure static assets; every unknown path falls back to index.html, so
+  // /kyc/<id> is served by the same page the client's browser sees.
+  "name": "prb-client-pages",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": ".",
+    "not_found_handling": "single-page-application"
+  },
+  "workers_dev": true
+}

@@ -1,0 +1,423 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Onboarding Form — Princess Realty Belize</title>
+<style>
+  :root { --navy: #0e1a3a; --coral: #c85a1f; --paper: #f6f4f1; --line: #e6e1db; --ink: #1b2436; --soft: #5a6675; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Segoe UI", Arial, sans-serif; line-height: 1.55; }
+  header { background: var(--navy); color: #fff; padding: 18px 20px; }
+  header img { height: 40px; display: block; }
+  header .tag { color: var(--coral); font-size: 12px; letter-spacing: .16em; text-transform: uppercase; font-weight: 700; margin-top: 6px; }
+  main { max-width: 720px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 24px; color: var(--navy); margin: 10px 0 4px; }
+  .intro { color: var(--soft); font-size: 13.5px; margin-bottom: 8px; }
+  .card { background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 18px 20px; margin-top: 16px; }
+  h2 { font-size: 16px; color: var(--navy); border-bottom: 2px solid var(--coral); padding-bottom: 6px; margin: 0 0 12px; }
+  label { display: block; font-size: 12.5px; font-weight: 700; color: var(--soft); margin: 12px 0 4px; }
+  input[type=text], input[type=date], input[type=email], input[type=tel], input[type=file], select, textarea {
+    width: 100%; padding: 9px 10px; border: 1px solid var(--line); border-radius: 6px; font: inherit; font-size: 14px; color: var(--ink); background: #fbfaf8;
+  }
+  .row { display: flex; gap: 12px; flex-wrap: wrap; }
+  .row > div { flex: 1 1 220px; }
+  .roles { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+  .roles label { display: flex; align-items: center; gap: 6px; margin: 0; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; cursor: pointer; background: #fbfaf8; }
+  .roles input { accent-color: var(--coral); }
+  .roles label.on { background: #fdf1ea; border-color: var(--coral); color: var(--navy); }
+  .yesno { display: flex; gap: 14px; margin-top: 6px; }
+  .yesno label { display: flex; align-items: center; gap: 6px; margin: 0; font-size: 13.5px; color: var(--ink); }
+  .note { font-size: 12px; color: var(--soft); margin-top: 4px; }
+  .decl { background: #fbfaf8; border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; font-size: 12.5px; color: var(--soft); max-height: 130px; overflow: auto; margin-top: 8px; }
+  .hidden { display: none; }
+  button.submit { display: block; width: 100%; margin: 22px 0 0; padding: 14px; background: var(--coral); color: #fff; border: 0; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; }
+  button.submit:disabled { background: #c9b6a5; cursor: wait; }
+  button.print { background: var(--navy); color: #fff; border: 0; padding: 10px 16px; border-radius: 6px; font-size: 13px; cursor: pointer; }
+  .problem { background: #fdecea; border: 1px solid #f5c2bd; color: #a3281c; padding: 10px 12px; border-radius: 6px; font-size: 13px; margin-top: 12px; }
+  .ok { background: #e9f6ec; border: 1px solid #bbe3c2; color: #1d6e33; padding: 12px; border-radius: 8px; font-size: 14px; font-weight: 600; }
+  .small { font-size: 12px; color: var(--soft); }
+</style>
+</head>
+<body>
+<header>
+  <img src="prb-logo.png" alt="Princess Realty Belize">
+  <div class="tag">Client Onboarding Form</div>
+</header>
+<main id="app">
+  <div id="bad-link" class="card hidden">
+    <h2>This link is incomplete</h2>
+    <p class="intro">Please ask your Princess Realty Belize agent to send you the form link again.</p>
+  </div>
+
+  <form id="form" novalidate>
+    <h1>Client Onboarding Form</h1>
+    <p class="intro">A separate copy of this form must be completed by each individual participating in the transaction as a purchaser, transferee or provider of funds. Where the purchaser or provider is a company, each director and shareholder completes their own copy.</p>
+
+    <div class="card">
+      <h2>Client role</h2>
+      <div class="roles" id="roles">
+        <label><input type="checkbox" value="buyer"> Buyer</label>
+        <label><input type="checkbox" value="seller"> Seller</label>
+        <label><input type="checkbox" value="tenant"> Tenant</label>
+        <label><input type="checkbox" value="landlord"> Landlord</label>
+        <label><input type="checkbox" value="providerOfFunds"> Provider of funds</label>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>1 · Client details</h2>
+      <label>Full name * <input type="text" id="fullName" autocomplete="name"></label>
+      <div class="row">
+        <div><label>Date of birth * <input type="date" id="dateOfBirth"></label></div>
+        <div><label>Nationality * <input type="text" id="nationality"></label></div>
+      </div>
+      <label>Primary residence address * <input type="text" id="address" autocomplete="street-address"></label>
+      <div class="row">
+        <div><label>Phone number * <input type="tel" id="phone" autocomplete="tel"></label></div>
+        <div><label>Email address * <input type="email" id="email" autocomplete="email"></label></div>
+      </div>
+      <div class="row">
+        <div><label>Occupation * <input type="text" id="occupation"></label></div>
+        <div><label>Employer / company name * <input type="text" id="employer"></label></div>
+      </div>
+      <div class="yesno"><label><input type="checkbox" id="isCompanyOrTrust"> This client is a company or trust</label></div>
+      <div class="row">
+        <div>
+          <label>ID type * <select id="idType"><option value="">Choose…</option><option value="Passport">Passport</option><option value="Belize Social Security Card">Belize Social Security Card</option></select></label>
+        </div>
+        <div><label>ID number * <input type="text" id="idNumber"></label></div>
+      </div>
+      <label>Are you a politically exposed person (PEP)? *</label>
+      <div class="yesno">
+        <label><input type="radio" name="pep" value="no"> No</label>
+        <label><input type="radio" name="pep" value="yes"> Yes</label>
+      </div>
+      <div id="pep-details" class="hidden">
+        <label>PEP details * <textarea id="pepDetails" rows="2"></textarea></label>
+      </div>
+    </div>
+
+    <div class="card hidden" id="selling">
+      <h2>2 · Selling or leasing</h2>
+      <label>Name(s) the proceeds will be paid to (write N/A if none) * <input type="text" id="sellerProceedsName"></label>
+      <label>Relationship of the proceeds recipient (write N/A if none) * <input type="text" id="sellerProceedsRelationship"></label>
+      <label>How did you acquire the property? * <input type="text" id="sellerHowAcquired"></label>
+      <label>Location of the original title * <input type="text" id="sellerTitleLocation"></label>
+    </div>
+
+    <div class="card hidden" id="buying">
+      <h2>3 · Purchasing or renting</h2>
+      <label>Name(s) to appear on the title / lease * <input type="text" id="buyerTitleOrLeaseNames"></label>
+      <label>Will the funds come directly from you as the buyer? *</label>
+      <div class="yesno">
+        <label><input type="radio" name="buyerFunds" value="yes" data-v="buyer"> Yes</label>
+        <label><input type="radio" name="buyerFunds" value="no" data-v="buyer"> No</label>
+      </div>
+      <div id="buyer-funds-others" class="hidden">
+        <label>Name(s) of who is paying the funds * <input type="text" id="buyerFundsFromOthersName"></label>
+        <label>Relationship of who is paying the funds * <input type="text" id="buyerFundsFromOthersRelationship"></label>
+      </div>
+    </div>
+
+    <div class="card hidden" id="funds">
+      <h2>4 · Declaration — source of funds</h2>
+      <label>Name of the bank the funds are sent from * <input type="text" id="fundsBankName"></label>
+      <label>Currency &amp; amount * <input type="text" id="fundsCurrencyAndAmount"></label>
+      <label>Source of the funds * <input type="text" id="fundsSourceDescription"></label>
+    </div>
+
+    <div class="card">
+      <h2>5 · Declaration</h2>
+      <div class="decl" id="declaration-text"></div>
+      <label>Your printed name * <input type="text" id="declarationPrintName"></label>
+      <label>Your signature (type your name) * <input type="text" id="declarationSignature"></label>
+      <label>Date (DD / MM / YYYY) * <input type="text" id="declarationDate" placeholder="11 / 11 / 2026"></label>
+    </div>
+
+    <div class="card">
+      <h2>Documents (optional)</h2>
+      <p class="intro">Identification and proof of address — PDF, JPG or PNG, up to 10&nbsp;MB each.</p>
+      <label>Add a document <input type="file" id="documents" multiple accept=".pdf,image/jpeg,image/png"></label>
+      <div id="doc-list" class="small"></div>
+    </div>
+
+    <button type="submit" class="submit" id="submit-btn">I have answered truthfully — send my form</button>
+    <div id="problem" class="problem hidden"></div>
+  </form>
+
+  <div id="done" class="hidden">
+    <div class="card">
+      <h2>Thank you</h2>
+      <p class="ok">Your form has been received by Princess Realty Belize. Your agent will contact you about the next step.</p>
+      <p class="intro" id="done-id" style="margin-top:12px"></p>
+      <button class="print" onclick="window.print()">Print my copy</button>
+    </div>
+  </div>
+</main>
+
+<script>
+"use strict";
+const REF = "zpbwxnzryxugtsvggeys";
+const SUPABASE_URL = "https://" + REF + ".supabase.co";
+const ANON_KEY = "sb_publishable_NkrbXqJuUaoJ6-Op3JRhDQ_IPpD19cv";
+const DECLARATION_VERSION = "prb-onboarding-section5-2026-10b";
+const DECLARATION_TEXT = "I, hereby Declare that none of my assets, net worth, income or activities relate in any manner to illegal activities, money laundering, illegal drugs, or any activity that I know to be illegal in my country of citizenship, residence or domicile. I do not intend to hinder, delay or defraud any party or engage in any illegal conduct in relation to this real estate transaction in Belize. I hereby expressly, specifically and unqualifiedly agree to wholly hold harmless and indemnity PRB Realty, its shareholders, officers, directors, employees, and agents from any liabilities arising out of any lawful actions taken by them be in reliance upon any fact of statement contained in this declaration which may hereafter prove to be untrue or materially inaccurate.";
+
+function $(id) { return document.getElementById(id); }
+function val(id) { const el = $(id); return el ? el.value : ""; }
+
+const path = location.pathname.replace(/\/+$/, "");
+const match = /^\/kyc\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i.exec(path);
+const agentUserId = match ? match[1] : null;
+
+if (!agentUserId) {
+  $("bad-link").classList.remove("hidden");
+  $("form").classList.add("hidden");
+} else {
+  document.querySelectorAll("#roles input").forEach(function (el) {
+    el.addEventListener("change", function () {
+      el.closest("label").classList.toggle("on", el.checked);
+      refreshSections();
+    });
+  });
+  document.querySelectorAll('input[name="pep"]').forEach(function (el) {
+    el.addEventListener("change", function () { $("pep-details").classList.toggle("hidden", el.value !== "yes"); });
+  });
+  document.querySelectorAll('input[name="buyerFunds"]').forEach(function (el) {
+    el.addEventListener("change", function () { $("buyer-funds-others").classList.toggle("hidden", el.value !== "no"); });
+  });
+  $("documents").addEventListener("change", function () {
+    const names = Array.from(this.files || []).map(function (f) { return f.name; }).join(", ");
+    $("doc-list").textContent = names ? "Ready to send: " + names : "";
+  });
+  $("declaration-text").textContent = DECLARATION_TEXT;
+  $("form").addEventListener("submit", onSubmit);
+}
+
+function refreshSections() {
+  const roles = selectedRoles();
+  const selling = roles.includes("seller") || roles.includes("landlord");
+  const buying = roles.includes("buyer") || roles.includes("tenant");
+  const funds = buying || roles.includes("providerOfFunds");
+  $("selling").classList.toggle("hidden", !selling);
+  $("buying").classList.toggle("hidden", !buying);
+  $("funds").classList.toggle("hidden", !funds);
+}
+
+function selectedRoles() {
+  return Array.from(document.querySelectorAll("#roles input:checked")).map(function (el) { return el.value; });
+}
+
+function isDeclarationDate(value) {
+  const m = /^(\d{2})\s*\/\s*(\d{2})\s*\/\s*(\d{4})$/.exec(value.trim());
+  if (!m) return false;
+  const day = Number(m[1]), month = Number(m[2]), year = Number(m[3]);
+  if (day < 1 || month < 1 || month > 12) return false;
+  const d = new Date(Date.UTC(year, month - 1, day));
+  return d.getUTCFullYear() === year && d.getUTCMonth() === month - 1 && d.getUTCDate() === day;
+}
+
+function missingFields() {
+  const roles = selectedRoles();
+  const selling = roles.includes("seller") || roles.includes("landlord");
+  const buying = roles.includes("buyer") || roles.includes("tenant");
+  const funds = buying || roles.includes("providerOfFunds");
+  const missing = [];
+  const need = function (value, label) { if (!value || !value.trim()) missing.push(label); };
+  if (roles.length === 0) missing.push("at least one client role");
+  need(val("fullName"), "your full name");
+  need(val("dateOfBirth"), "your date of birth");
+  need(val("nationality"), "your nationality");
+  need(val("address"), "your primary residence address");
+  need(val("phone"), "your phone number");
+  need(val("email"), "your email address");
+  need(val("occupation"), "your occupation");
+  need(val("employer"), "your employer / company name");
+  need(val("idType"), "your ID type (passport or Belize Social Security card)");
+  need(val("idNumber"), "your ID number");
+  const pep = document.querySelector('input[name="pep"]:checked');
+  if (!pep) missing.push("whether you are a politically exposed person (PEP)");
+  else if (pep.value === "yes") need(val("pepDetails"), "the PEP details");
+  if (selling) {
+    need(val("sellerProceedsName"), "the name(s) the proceeds will be paid to — write N/A if none");
+    need(val("sellerProceedsRelationship"), "the relationship of the proceeds recipient — write N/A if none");
+    need(val("sellerHowAcquired"), "how you acquired the property");
+    need(val("sellerTitleLocation"), "the location of the original title");
+  }
+  if (buying) {
+    need(val("buyerTitleOrLeaseNames"), "the name(s) to appear on the title or lease");
+    const direct = document.querySelector('input[name="buyerFunds"]:checked');
+    if (!direct) missing.push("whether the funds come directly from you as the buyer");
+    else if (direct.value === "no") {
+      need(val("buyerFundsFromOthersName"), "the name(s) of who is paying the funds");
+      need(val("buyerFundsFromOthersRelationship"), "the relationship of who is paying the funds");
+    }
+  }
+  if (funds) {
+    need(val("fundsBankName"), "the name of the bank the funds are sent from");
+    need(val("fundsCurrencyAndAmount"), "the currency & amount");
+    need(val("fundsSourceDescription"), "the source of the funds");
+  }
+  need(val("declarationPrintName"), "your printed name (Section 5)");
+  need(val("declarationSignature"), "your signature (Section 5)");
+  if (!isDeclarationDate(val("declarationDate"))) missing.push("the date as DD / MM / YYYY (Section 5)");
+  return missing;
+}
+
+function showProblem(text) {
+  const box = $("problem");
+  box.textContent = text;
+  box.classList.remove("hidden");
+  box.scrollIntoView({ behavior: "smooth", block: "center" });
+}
+
+async function jsonHeaders() {
+  return { apikey: ANON_KEY, Authorization: "Bearer " + ANON_KEY, "Content-Type": "application/json", Prefer: "return=minimal" };
+}
+
+async function onSubmit(event) {
+  event.preventDefault();
+  const btn = $("submit-btn");
+  const missing = missingFields();
+  if (missing.length > 0) {
+    showProblem("Please fill in before sending: " + missing.join(" · "));
+    return;
+  }
+  btn.disabled = true;
+  btn.textContent = "Sending…";
+  $("problem").classList.add("hidden");
+
+  try {
+    const now = new Date().toISOString();
+    const id = crypto.randomUUID();
+    const roles = selectedRoles();
+    const selling = roles.includes("seller") || roles.includes("landlord");
+    const buying = roles.includes("buyer") || roles.includes("tenant");
+    const pepRadio = document.querySelector('input[name="pep"]:checked');
+    const pep = pepRadio.value === "yes";
+    let buyerFunds = null;
+    const direct = document.querySelector('input[name="buyerFunds"]:checked');
+    if (buying && direct) buyerFunds = direct.value === "yes";
+
+    const data = {
+      roles: roles,
+      dateFormCompleted: now.slice(0, 10),
+      fullName: val("fullName").trim(),
+      dateOfBirth: val("dateOfBirth") || undefined,
+      nationality: val("nationality").trim() || undefined,
+      address: val("address").trim() || undefined,
+      idType: val("idType") || undefined,
+      idNumber: val("idNumber").trim() || undefined,
+      phone: val("phone").trim() || undefined,
+      email: val("email").trim() || undefined,
+      occupation: val("occupation").trim() || undefined,
+      employer: val("employer").trim() || undefined,
+      isCompanyOrTrust: $("isCompanyOrTrust").checked,
+      pep: pep,
+      pepDetails: pep && val("pepDetails").trim() ? val("pepDetails").trim() : undefined,
+      sellerProceedsToOthers: val("sellerProceedsName").trim()
+        ? [{ name: val("sellerProceedsName").trim(), relationship: val("sellerProceedsRelationship").trim() }]
+        : undefined,
+      sellerHowAcquired: selling ? val("sellerHowAcquired").trim() || undefined : undefined,
+      sellerTitleLocation: selling ? val("sellerTitleLocation").trim() || undefined : undefined,
+      buyerTitleOrLeaseNames: buying ? val("buyerTitleOrLeaseNames").trim() || undefined : undefined,
+      buyerFundsDirectlyFromBuyer: buying && buyerFunds !== null ? buyerFunds : undefined,
+      buyerFundsFromOthers:
+        buying && buyerFunds === false && val("buyerFundsFromOthersName").trim()
+          ? [{ name: val("buyerFundsFromOthersName").trim(), relationship: val("buyerFundsFromOthersRelationship").trim() }]
+          : undefined,
+      fundsBankName: val("fundsBankName").trim() || undefined,
+      fundsCurrencyAndAmount: val("fundsCurrencyAndAmount").trim() || undefined,
+      fundsSourceDescription: val("fundsSourceDescription").trim() || undefined,
+      declaration: {
+        printName: val("declarationPrintName").trim(),
+        signature: val("declarationSignature").trim(),
+        date: val("declarationDate").trim(),
+        text: DECLARATION_TEXT,
+        version: DECLARATION_VERSION,
+      },
+    };
+    const submission = {
+      id: id,
+      agentUserId: agentUserId,
+      status: "pending",
+      ...data,
+    };
+    const row = {
+      id: submission.id,
+      user_id: agentUserId,
+      data: submission,
+      updated_at: now,
+      deleted_at: null,
+    };
+
+    const headers = await jsonHeaders();
+    const insertResponse = await fetch(SUPABASE_URL + "/rest/v1/intake_submissions", {
+      method: "POST",
+      headers: headers,
+      body: JSON.stringify([row]),
+    });
+    if (!insertResponse.ok) {
+      const err = await insertResponse.text().catch(function () { return ""; });
+      throw new Error("The form could not be sent (server answer " + insertResponse.status + "). " + err.slice(0, 200));
+    }
+
+    const files = Array.from($("documents").files || []);
+    for (const file of files) {
+      if (file.size > 10 * 1024 * 1024) continue;
+      const safeName = file.name.replace(/[^a-zA-Z0-9._-]/g, "_").slice(-100);
+      const docId = crypto.randomUUID();
+      const storagePath = agentUserId + "/" + id + "/" + docId + "-" + safeName;
+      const up = await fetch(SUPABASE_URL + "/storage/v1/object/intake-documents/" + storagePath, {
+        method: "POST",
+        headers: {
+          apikey: ANON_KEY,
+          Authorization: "Bearer " + ANON_KEY,
+          "Content-Type": file.type || "application/octet-stream",
+          "x-upsert": "false",
+        },
+        body: file,
+      });
+      if (!up.ok) continue;
+      const docData = {
+        id: docId,
+        agentUserId: agentUserId,
+        intakeSubmissionId: id,
+        label: "Identification & proof of address",
+        fileName: file.name,
+        contentType: file.type,
+        sizeBytes: file.size,
+        storagePath: storagePath,
+        viewed: false,
+        createdAt: now,
+        updatedAt: now,
+      };
+      await fetch(SUPABASE_URL + "/rest/v1/intake_documents", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify([{ id: docId, user_id: agentUserId, data: docData, updated_at: now, deleted_at: null }]),
+      }).catch(function () { /* the file is there; the label row can be re-synced by the agent */ });
+    }
+
+    try {
+      await fetch(SUPABASE_URL + "/functions/v1/send-intake-notification", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", apikey: ANON_KEY, Authorization: "Bearer " + ANON_KEY },
+        body: JSON.stringify({ submissionId: id }),
+      });
+    } catch (e) { /* the doorbell must never turn the form into an error */ }
+
+    $("done-id").textContent = "Your reference: " + id + " — please keep it for your records.";
+    $("form").classList.add("hidden");
+    $("done").classList.remove("hidden");
+    window.scrollTo(0, 0);
+  } catch (err) {
+    showProblem("Something went wrong: " + (err && err.message ? err.message : err) + " Your answers are still on this page — please try again.");
+    btn.disabled = false;
+    btn.textContent = "I have answered truthfully — send my form";
+  }
+}
+</script>
+</body>
+</html>
