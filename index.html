@@ -167,9 +167,11 @@ const DECLARATION_TEXT = "I, hereby Declare that none of my assets, net worth, i
 function $(id) { return document.getElementById(id); }
 function val(id) { const el = $(id); return el ? el.value : ""; }
 
-const path = location.pathname.replace(/\/+$/, "");
-const match = /^\/kyc\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i.exec(path);
-const agentUserId = match ? match[1] : null;
+// The agent is read from ?kyc=<id> (always served, always 200), and also from
+// /kyc/<id> for the day the site serves these pages on the apex domain.
+const queryId = new URLSearchParams(location.search).get("kyc");
+const pathMatch = /^\/kyc\/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})$/i.exec(location.pathname.replace(/\/+$/, ""));
+const agentUserId = queryId || (pathMatch ? pathMatch[1] : null);
 
 if (!agentUserId) {
   $("bad-link").classList.remove("hidden");
